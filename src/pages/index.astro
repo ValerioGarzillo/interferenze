@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 
 // 1. Diciamo ad Astro di recuperare tutti i file .md dentro src/pages/blog/
-const allPosts = await Astro.glob('./blog/*.md');
+const allPosts = await Astro.glob('/src/pages/blog/*.md');
 
 // 2. Prendiamo solo gli ultimi 6 articoli (se ce ne sono meno di 6, prenderà quelli disponibili)
 const latestPosts = allPosts.slice(0, 6);
