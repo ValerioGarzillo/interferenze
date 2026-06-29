@@ -1,41 +1,63 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+
+// 1. Diciamo ad Astro di recuperare tutti i file .md dentro src/pages/blog/
+const allPosts = await Astro.glob('./blog/*.md');
+
+// 2. Prendiamo solo gli ultimi 6 articoli (se ce ne sono meno di 6, prenderà quelli disponibili)
+const latestPosts = allPosts.slice(0, 6);
 ---
 
 <Layout title="Interferenze - Note di Fisica, Matematica e Informatica">
 	<Header />
 	
 	<main class="homepage-container">
-		<!-- Sezione Introduttiva Testuale -->
 		<section class="intro-section">
-		<!-- 	<h1> Interferenze</h1>
-			<p class="subtitle">Discipline scientifiche spiegate in modo semplice. Note sparse di fisica, matematica e informatica da un liceo.</p> -->
+			<h1>Interferenze</h1>
+			<p class="subtitle">Discipline scientifiche spiegate in modo semplice. Note sparse di fisica, matematica e informatica da un liceo.</p>
 		</section>
 
-		<!-- Immagine Centrale Responsiva -->
 		<div class="hero-image-wrapper">
-			<!-- Ricorda di mettere l'immagine in public/ e rinominarla o cambiare il src qui sotto -->
-			<img src="/hero.jpeg" alt="Copertina Interferenze" class="responsive-hero-image" />
+			<img src="/hero.jpg" alt="Copertina Interferenze" class="responsive-hero-image" />
 		</div>
+
+		<section class="posts-section">
+			<h2 class="section-title">Post recenti</h2>
+			<div class="posts-grid">
+				{latestPosts.map((post) => (
+					<article class="post-card">
+						<div class="post-content">
+							<h3 class="post-title">
+								<a href={post.url}>{post.frontmatter.title}</a>
+							</h3>
+							<p class="post-description">{post.frontmatter.description}</p>
+							<div class="post-meta">
+								<span class="read-more"><a href={post.url}>Leggi l'articolo →</a></span>
+							</div>
+						</div>
+					</article>
+				))}
+			</div>
+		</section>
 	</main>
 </Layout>
 
 <style>
 	body {
-		background-color: #ffffff; /* Sfondo totalmente bianco per pulizia massima */
+		background-color: #ffffff;
 		margin: 0;
 		color: #1a1a1a;
 		-webkit-font-smoothing: antialiased;
 	}
 
 	.homepage-container {
-		max-width: 680px; /* Larghezza tipica degli articoli di Substack, perfetta per la lettura */
+		max-width: 680px; /* Larghezza Substack ottimale per la lettura */
 		margin: 0 auto;
 		padding: 3rem 1.2rem;
 		display: flex;
 		flex-direction: column;
-		gap: 2.5rem;
+		gap: 3rem;
 	}
 
 	.intro-section {
@@ -43,16 +65,15 @@ import Header from '../components/Header.astro';
 	}
 
 	h1 {
-		font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+		font-family: Georgia, Cambria, serif;
 		font-size: 2.8rem;
 		font-weight: 700;
 		margin: 0 0 0.8rem 0;
-		color: #1a1a1a;
 		letter-spacing: -1px;
 	}
 
 	.subtitle {
-		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 		font-size: 1.15rem;
 		line-height: 1.5;
 		color: #666666;
@@ -60,32 +81,92 @@ import Header from '../components/Header.astro';
 		margin: 0 auto;
 	}
 
-	/* Il segreto dell'adattabilità al cellulare */
 	.hero-image-wrapper {
 		width: 100%;
 		overflow: hidden;
-		border-radius: 8px; /* Substack usa angoli vivi o appena accennati */
-		border: 1px solid #e5e7eb; /* Bordino sottile per dare staccabilità all'immagine */
+		border-radius: 8px;
+		border: 1px solid #e5e7eb;
 	}
 
 	.responsive-hero-image {
-		width: 100%;       /* Occupa tutto lo spazio disponibile sul telefono */
-		height: auto;      /* Mantiene rigorosamente le proporzioni originali su ogni schermo */
-		max-height: 400px; /* Evita che sui computer giganti diventi troppo alta */
-		object-fit: cover; /* Gestisce il ritaglio matematico se incontra il limite di altezza */
+		width: 100%;
+		height: auto;
+		max-height: 380px;
+		object-fit: cover;
 		display: block;
 	}
 
-	/* Ottimizzazioni specifiche per schermi piccoli (Smartphone) */
+	/* CSS PER LA SEZIONE ARTICOLI (STILE SUBSTACK) */
+	.posts-section {
+		border-top: 1px solid #e5e7eb; /* Linea divisoria orizzontale pulita */
+		padding-top: 2rem;
+	}
+
+	.section-title {
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+		font-size: 0.9rem;
+		text-transform: uppercase; /* Scrittura in maiuscolo piccolo tipica di Substack */
+		letter-spacing: 1px;
+		color: #1a1a1a;
+		margin-bottom: 1.5rem;
+	}
+
+	.posts-grid {
+		display: block; /* Sviluppo verticale lineare dei post */
+	}
+
+	.post-card {
+		border-bottom: 1px solid #f3f4f6; /* Linea sottile tra un articolo e l'altro */
+		padding: 1.5rem 0;
+	}
+
+	.post-card:last-child {
+		border-bottom: none; /* Rimuove la linea dall'ultimo articolo */
+	}
+
+	.post-title {
+		font-family: Georgia, Cambria, serif;
+		font-size: 1.4rem;
+		margin: 0 0 0.5rem 0;
+		line-height: 1.3;
+	}
+
+	.post-title a {
+		color: #1a1a1a;
+		text-decoration: none;
+	}
+
+	.post-title a:hover {
+		color: #3b82f6; /* Accento blu moderno al passaggio del mouse */
+	}
+
+	.post-description {
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+		font-size: 1rem;
+		color: #555555;
+		line-height: 1.5;
+		margin: 0 0 0.8rem 0;
+	}
+
+	.post-meta {
+		font-size: 0.85rem;
+	}
+
+	.read-more a {
+		color: #3b82f6;
+		text-decoration: none;
+		font-weight: 500;
+	}
+
+	.read-more a:hover {
+		text-decoration: underline;
+	}
+
+	/* Ottimizzazione Smartphone */
 	@media (max-width: 480px) {
-		h1 {
-			font-size: 2.2rem; /* Rimpicciolisce leggermente il titolo per non farlo andare troppo a capo */
-		}
-		.subtitle {
-			font-size: 1.05rem;
-		}
-		.homepage-container {
-			padding: 1.5rem 1rem; /* Riduce i margini per sfruttare tutto lo spazio del telefono */
-		}
+		h1 { font-size: 2.2rem; }
+		.subtitle { font-size: 1.05rem; }
+		.post-title { font-size: 1.25rem; }
+		.homepage-container { padding: 1.5rem 1rem; gap: 2rem; }
 	}
 </style>
