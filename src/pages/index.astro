@@ -3,66 +3,89 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 ---
 
-<Layout title="Interferenze - Fisica, Matematica e Informatica">
+<Layout title="Interferenze - Note di Fisica, Matematica e Informatica">
 	<Header />
 	
-	<main class="hero-container">
-		<img src="/hero.jpeg" alt="Interferenze" class="hero-image" width="200"/>
-		
-		<h1>Benvenuti su <span class="accent"> Interferenze</span></h1>
-		<p class="subtitle">Appunti leggeri di Fisica, Matematica e Informatica per menti curiose.</p>
+	<main class="homepage-container">
+		<!-- Sezione Introduttiva Testuale -->
+		<section class="intro-section">
+			<h1> Interferenze</h1>
+			<p class="subtitle">Discipline scientifiche spiegate in modo semplice. Note sparse di fisica, matematica e informatica da un liceo.</p>
+		</section>
+
+		<!-- Immagine Centrale Responsiva -->
+		<div class="hero-image-wrapper">
+			<!-- Ricorda di mettere l'immagine in public/ e rinominarla o cambiare il src qui sotto -->
+			<img src="/hero.jpeg" alt="Copertina Interferenze" class="responsive-hero-image" />
+		</div>
 	</main>
 </Layout>
 
 <style>
 	body {
-		font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		background-color: #ffffff; /* Sfondo totalmente bianco per pulizia massima */
 		margin: 0;
-		background-color: #f8fafc;
-		color: #1e293b;
+		color: #1a1a1a;
+		-webkit-font-smoothing: antialiased;
 	}
-	.hero-container {
-		max-width: 800px;
-		margin: 4rem auto;
+
+	.homepage-container {
+		max-width: 680px; /* Larghezza tipica degli articoli di Substack, perfetta per la lettura */
+		margin: 0 auto;
+		padding: 3rem 1.2rem;
+		display: flex;
+		flex-direction: column;
+		gap: 2.5rem;
+	}
+
+	.intro-section {
 		text-align: center;
-		padding: 0 1rem;
 	}
-	.hero-image {
-		width: 100%;
-		max-width: 500px;
-		height: auto;
-		border-radius: 20px;
-		box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-		margin-bottom: 2rem;
-	}
+
 	h1 {
-		font-size: 2.5rem;
-		margin-bottom: 0.5rem;
+		font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+		font-size: 2.8rem;
+		font-weight: 700;
+		margin: 0 0 0.8rem 0;
+		color: #1a1a1a;
+		letter-spacing: -1px;
 	}
-	.accent {
-		color: #3b82f6;
-	}
+
 	.subtitle {
-		font-size: 1.2rem;
-		color: #64748b;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+		font-size: 1.15rem;
+		line-height: 1.5;
+		color: #666666;
+		max-width: 540px;
+		margin: 0 auto;
 	}
 
+	/* Il segreto dell'adattabilità al cellulare */
+	.hero-image-wrapper {
+		width: 100%;
+		overflow: hidden;
+		border-radius: 8px; /* Substack usa angoli vivi o appena accennati */
+		border: 1px solid #e5e7eb; /* Bordino sottile per dare staccabilità all'immagine */
+	}
 
-	.hero-container {
-  max-width: 800px;      /* Impedisce al contenuto di allargarsi troppo sui monitor grandi */
-  margin: 4rem auto;     /* Centra la hero e lascia spazio dal menu */
-  padding: 0 1.5rem;     /* Protegge i lati sui telefoni */
-  display: flex;
-  flex-direction: column;
-  align-items: center;   /* Centra perfettamente tutti gli elementi in orizzontale */
-}
+	.responsive-hero-image {
+		width: 100%;       /* Occupa tutto lo spazio disponibile sul telefono */
+		height: auto;      /* Mantiene rigorosamente le proporzioni originali su ogni schermo */
+		max-height: 400px; /* Evita che sui computer giganti diventi troppo alta */
+		object-fit: cover; /* Gestisce il ritaglio matematico se incontra il limite di altezza */
+		display: block;
+	}
 
-.hero-image {
-  width: 100%;           /* L'immagine è fluida... */
-  max-width: 1000px;      /* ...ma non supererà mai i 450px di larghezza */
-  height: 500px;         /* Altezza fissa per dare stabilità alla grafica */
-  object-fit: cover;     /* Fondamentale! Ritaglia l'immagine senza distorcerla */
-  border-radius: 24px;   /* Angoli molto arrotondati, stile moderno/app */
-  box-shadow: 0 12px 30px rgba(59, 130, 246, 0.1); /* Ombra leggera azzurrata */
-}
+	/* Ottimizzazioni specifiche per schermi piccoli (Smartphone) */
+	@media (max-width: 480px) {
+		h1 {
+			font-size: 2.2rem; /* Rimpicciolisce leggermente il titolo per non farlo andare troppo a capo */
+		}
+		.subtitle {
+			font-size: 1.05rem;
+		}
+		.homepage-container {
+			padding: 1.5rem 1rem; /* Riduce i margini per sfruttare tutto lo spazio del telefono */
+		}
+	}
 </style>

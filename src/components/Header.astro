@@ -1,46 +1,76 @@
 ---
-// Qui puoi mettere logica se serve, per ora lasciamo vuoto
+// src/components/Header.astro
 ---
 <header class="main-header">
-  <div class="logo"> INTERFERENZE</div>
-  <nav>
-    <ul>
-      <li><a href="/blog/primo-articolo">Ultimi Articoli</a></li>
-      <li><a href="#chi-sono">Chi sono</a></li>
-      <li><a href="#archivio">Archivio</a></li>
-      <li><a href="#letture">Letture</a></li>
-    </ul>
-  </nav>
+  <div class="header-container">
+    <div class="logo"> INTERFERENZE</div>
+    <nav class="nav-menu">
+      <ul>
+        <li><a href="/blog/primo-articolo"> Ultimi Articoli</a></li>
+        <li><a href="#chi-sono"> Chi sono</a></li>
+        <li><a href="#archivio"> Archivio</a></li>
+        <li><a href="#letture"> Letture</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
 
 <style>
   .main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 2rem;
     background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border-bottom: 1px solid #e5e7eb; /* Linea sottile grigia tipica di Substack */
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
   }
+
+  .header-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column; /* Impilati di default sui telefoni */
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  /* Quando lo schermo è grande (computer), si mettono affiancati come su Substack */
+  @media (min-width: 600px) {
+    .header-container {
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 0;
+    }
+  }
+
   .logo {
-    font-weight: bold;
-    font-size: 1.4rem;
-    color: #2c3e50;
+    font-family: Georgia, serif; /* Font classico ed elegante per il logo */
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #1a1a1a;
+    letter-spacing: -0.5px;
   }
+
   ul {
     display: flex;
+    flex-wrap: wrap; /* Se non entrano sul telefono, vanno a capo da soli senza rompersi */
+    justify-content: center;
     list-style: none;
-    gap: 2rem;
+    gap: 1.5rem;
     margin: 0;
     padding: 0;
   }
+
   a {
     text-decoration: none;
-    color: #5a6c7d;
-    font-weight: 500;
-    transition: color 0.2s ease;
+    color: #555555;
+    font-size: 0.95rem;
+    font-weight: 400;
+    transition: color 0.15s ease;
   }
+
   a:hover {
-    color: #3b82f6; /* Un blu moderno e giovanile */
+    color: #000000; /* Stile minimal: link scurisce al passaggio */
   }
 </style>
