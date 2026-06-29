@@ -1,0 +1,46 @@
+---
+// Qui puoi mettere logica se serve, per ora lasciamo vuoto
+---
+<header class="main-header">
+  <div class="logo"> INTERFERENZE</div>
+  <nav>
+    <ul>
+      <li><a href="/blog/primo-articolo">Ultimi Articoli</a></li>
+      <li><a href="#chi-sono">Chi sono</a></li>
+      <li><a href="#archivio">Archivio</a></li>
+      <li><a href="#letture">Letture</a></li>
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  .logo {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #2c3e50;
+  }
+  ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    text-decoration: none;
+    color: #5a6c7d;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  a:hover {
+    color: #3b82f6; /* Un blu moderno e giovanile */
+  }
+</style>
