@@ -2,10 +2,16 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 
-// 1. Diciamo ad Astro di recuperare tutti i file .md dentro src/pages/blog/
-const allPosts = await Astro.glob('/src/pages/blog/*.md');
+// 1. Usiamo il nuovo metodo supportato da Astro e Vite per caricare i file Markdown
+const postFiles = import.meta.glob('./blog/*.md', { eager: true });
 
-// 2. Prendiamo solo gli ultimi 6 articoli (se ce ne sono meno di 6, prenderà quelli disponibili)
+// 2. Trasformiamo l'oggetto in un array e mappiamo i dati per estrarre url e frontmatter
+const allPosts = Object.values(postFiles).map((post: any) => ({
+  url: post.url,
+  frontmatter: post.frontmatter,
+}));
+
+// 3. Prendiamo i primi 6 articoli per la homepage
 const latestPosts = allPosts.slice(0, 6);
 ---
 
